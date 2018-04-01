@@ -1,0 +1,5 @@
+{
+  "mysql": {
+    "dal": "mysql://username:password@localhost:3306/db_name"
+  }
+}

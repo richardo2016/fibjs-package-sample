@@ -1,0 +1,11 @@
+/node_modules
+/vendor/fibjs_bin/fibjs-*
+.DS_Store
+.env.rc.json
+.env.rc.js
+.env.rc
+mongo-dal.log
+parse-server.info.*
+parse-server.err.*
+bin/*
+fibjs-*.log

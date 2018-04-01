@@ -1,0 +1,36 @@
+{
+  "name": "fibjs-package-sample",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "cross-env FIB_ENV=development fibjs ./src/index.js",
+    "prof": "cross-env FIB_ENV=development fibjs --prof --prof-interval=10 ./src/index.js",
+    "clean:log": "rm -rf fibjs-*.log",
+    "prod": "cross-env FIB_ENV=production fibjs ./src/index.js",
+    "build:prod": "fibjs tools/build.js",
+    "build:env": "fibjs tools/build.env.rc.js",
+    "pre:get-fib": "cd vendor/fibjs_bin && sh latest_bin.sh",
+    "start": "npm run prod"
+  },
+  "dependencies": {
+    "axios": "^0.16.2",
+    "config": "^1.26.2",
+    "fib-orm": "git+ssh://git@github.com/richardo2016/fib-orm.git#b0d6e3d27b1b1b55a34dd7d9f81d3ca49b03cbeb",
+    "fib-pool": "^1.3.0",
+    "fib-pug": "0.0.1",
+    "pug": "^2.0.0-rc.4",
+    "vue": "^2.4.2",
+    "vue-server-renderer": "^2.4.2"
+  },
+  "devDependencies": {
+    "cross-env": "^5.0.5",
+    "eslint": "^4.5.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-node": "^5.1.1",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "supervisor": "^0.12.0"
+  }
+}
