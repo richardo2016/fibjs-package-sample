@@ -1,24 +1,7 @@
 const http = require('http')
-const db = require('db')
-const util = require('util')
-const coroutine = require('coroutine')
 
-const cfg = require('./conf')
+const mysqlDipper = require('./_setup/mysql-conn-pool')
 const pug = require('fib-pug')
-
-let mysqlConnector = null
-
-function tryConn () {
-  try {
-    mysqlConnector = util.sync(db.openMySQL)(cfg.mysql.dal)
-  } catch (error) {
-    mysqlConnector = null
-    console.info('[fibjs:app:mysqlConnector:error] connect failed', error)
-    return
-  }
-  console.info('[fibjs:app:mysqlConnector:ok] connect success')
-}
-tryConn()
 
 function testMysqlHandler (req) {
   // let sql = 'show tables'
@@ -26,10 +9,10 @@ function testMysqlHandler (req) {
   let sql = 'select * from you_table limit 0, ?'
   let res = null
   try {
+    const mysqlConnector = mysqlDipper(o => o)
     if (!mysqlConnector) {
       okJsonRes(req.response)
       req.response.write(JSON.stringify({error: 'bad mysqlConnector'}))
-      tryConn()
       return
     }
 
@@ -102,10 +85,4 @@ const svr = new http.Server(3001, {
 })
 
 console.log('[fibjs:app] started')
-coroutine.start(() => {
-  while (!mysqlConnector) {
-    tryConn()
-    coroutine.sleep(1000)
-  }
-})
 svr.run()
